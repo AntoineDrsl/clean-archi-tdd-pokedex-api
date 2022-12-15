@@ -5,6 +5,9 @@
   "repository": "https://github.com/AntoineDrsl/clean-archi-tdd-pokedex-api.git",
   "author": "AntoineDrsl <antoine.durussel@gmail.com>",
   "license": "MIT",
+  "scripts": {
+    "test": "jest"
+  },
   "devDependencies": {
     "@types/jest": "^29.2.4",
     "jest": "^29.3.1",
