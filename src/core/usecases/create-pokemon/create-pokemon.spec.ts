@@ -1,21 +1,24 @@
+import { FakeStorageGateway } from './../../../adapters/secondary/fake-storage.gateway';
 import { Pokemon } from './../../entities/pokemon.entity';
 import { pikachu, abo, roucoups } from './../../faker/pokemon.faker';
 import { InMemoryPokemonGateway } from './../../../adapters/secondary/in-memory-pokemon.gateway';
 import { createPokemon } from './create-pokemon';
+import { File } from '../../entities/file.entity';
 
 describe('Create a pokemon', () => {
     let pokemonGateway: InMemoryPokemonGateway
+    let storageGateway: FakeStorageGateway
     let pokemon: Pokemon
 
     beforeEach(() => {
-        pokemonGateway = new InMemoryPokemonGateway()
+        storageGateway = new FakeStorageGateway()
+        pokemonGateway = new InMemoryPokemonGateway(storageGateway)
     })
     describe('There is no previous pokemon', () => {
         beforeEach(async () => {
             pokemon = await createPokemon({
                 name: pikachu.name,
                 description: pikachu.description,
-                image: pikachu.image,
                 types: pikachu.types,
             }, pokemonGateway)
         })
@@ -25,15 +28,29 @@ describe('Create a pokemon', () => {
         it('should save the pokemon in the gateway', async () => {
             expect(await pokemonGateway.list()).toEqual([pikachu])
         })
+        it('should upload the file in the storage gateway', async () => {
+            const expectedFile: File = {
+                path: pokemon.image
+            }
+            expect(await storageGateway.getFiles()).toEqual([expectedFile])
+        })
     })
 
     describe('There is previous pokemon', () => {
+        const pikachuImage: File = {
+            path: pikachu.image
+        }
+        const roucoupsImage: File = {
+            path: roucoups.image
+        }
+
         beforeEach(async () => {
             pokemonGateway.feedWith(pikachu, roucoups)
+            storageGateway.feedWith(pikachuImage, roucoupsImage)
+            
             pokemon = await createPokemon({
                 name: abo.name,
                 description: abo.description,
-                image: abo.image,
                 types: abo.types,
             }, pokemonGateway)
         })
@@ -42,6 +59,12 @@ describe('Create a pokemon', () => {
         })
         it('should save the pokemon in the gateway', async () => {
             expect(await pokemonGateway.list()).toEqual([pikachu, roucoups, pokemon])
+        })
+        it('should upload the file in the storage gateway', async () => {
+            const expectedFile: File = {
+                path: pokemon.image
+            }
+            expect(await storageGateway.getFiles()).toEqual([pikachuImage, roucoupsImage, expectedFile])
         })
     })
 })

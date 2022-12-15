@@ -1,3 +1,4 @@
+import { FakeStorageGateway } from './../../../adapters/secondary/fake-storage.gateway';
 import { PokemonNotFoundError } from './../../errors/pokemon-not-found.error';
 import { InMemoryPokemonGateway } from '../../../adapters/secondary/in-memory-pokemon.gateway';
 import { findPokemon } from './find-pokemon';
@@ -8,7 +9,7 @@ describe('Find a pokemon with its id', () => {
     const id: number = 1
 
     beforeEach(() => {
-        pokemonGateway = new InMemoryPokemonGateway()
+        pokemonGateway = new InMemoryPokemonGateway(new FakeStorageGateway())
     })
     it('should return pokemon if exists', async () => {
         pokemonGateway.feedWith(pikachu, roucoups)

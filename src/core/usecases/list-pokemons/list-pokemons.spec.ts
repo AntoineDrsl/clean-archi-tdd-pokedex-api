@@ -1,3 +1,4 @@
+import { FakeStorageGateway } from './../../../adapters/secondary/fake-storage.gateway';
 import { pikachu, roucoups } from '../../faker/pokemon.faker';
 import { Pokemon } from '../../entities/pokemon.entity';
 import { InMemoryPokemonGateway } from '../../../adapters/secondary/in-memory-pokemon.gateway';
@@ -7,7 +8,7 @@ describe('List pokemons', () => {
     let pokemonGateway: InMemoryPokemonGateway
 
     beforeEach(() => {
-        pokemonGateway = new InMemoryPokemonGateway()
+        pokemonGateway = new InMemoryPokemonGateway(new FakeStorageGateway())
     })
     it('should return [] when there is no pokemon', async () => {
         const pokemons = await listPokemons(pokemonGateway)
