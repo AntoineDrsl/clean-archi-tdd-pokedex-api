@@ -8,6 +8,7 @@ export const app = express()
 
 app.use(express.json())
 
+// Routes
 app.get('/pokemons', async (req: any, res: any) => {
     const pokemons = await listPokemons(pokemonGateway())
     res.send(JSON.stringify(pokemons))

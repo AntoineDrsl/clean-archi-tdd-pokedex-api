@@ -16,3 +16,11 @@ export const roucoups: Pokemon = {
     image: 'assets/roucoups.png',
     types: [PokemonTypeEnum.VOL, PokemonTypeEnum.NORMAL],
 }
+
+export const abo: Pokemon = {
+    id: 3,
+    name: 'Abo',
+    description: 'Un pokemon serpent',
+    image: 'assets/abo.png',
+    types: [PokemonTypeEnum.POISON],
+}
