@@ -10,7 +10,7 @@ export class InMemoryPokemonGateway implements PokemonGateway {
     }
 
     find(id: number): Promise<Pokemon> {
-        const pokemon = this.pokemons.find(pokemon => pokemon.id === id)
+        const pokemon = this.pokemons.find(pokemon => pokemon.id == id)
         if(!pokemon) {
             throw new PokemonNotFoundError
         }

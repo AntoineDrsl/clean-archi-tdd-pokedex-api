@@ -1,4 +1,5 @@
 import { app } from './app';
+import { PokemonNotFoundError } from './../../../core/errors/pokemon-not-found.error';
 
 const port = 3001
 
