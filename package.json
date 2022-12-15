@@ -6,7 +6,8 @@
   "author": "AntoineDrsl <antoine.durussel@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "test": "jest"
+    "test": "jest",
+    "dev": "ts-node src/adapters/primary/express/server.ts"
   },
   "devDependencies": {
     "@types/jest": "^29.2.4",
