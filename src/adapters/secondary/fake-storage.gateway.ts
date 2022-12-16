@@ -4,9 +4,13 @@ import { StorageGateway } from "../../core/gateways/storage.gateway";
 export class FakeStorageGateway implements StorageGateway {
     private files: Array<File> = []
 
-    upload(path: string): Promise<File> {
+    upload(name: string): Promise<File> {
+        if(!/^[a-z\-]*$/.test(name)) {
+            throw new Error('Bad image name')
+        }
+
         const file: File = {
-            path: path
+            name: name + '.png',
         }
         this.files.push(file)
         return Promise.resolve(file)

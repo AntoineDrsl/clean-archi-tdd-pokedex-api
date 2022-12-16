@@ -30,7 +30,7 @@ describe('Create a pokemon', () => {
         })
         it('should upload the file in the storage gateway', async () => {
             const expectedFile: File = {
-                path: pokemon.image
+                name: pokemon.image
             }
             expect(await storageGateway.getFiles()).toEqual([expectedFile])
         })
@@ -38,10 +38,10 @@ describe('Create a pokemon', () => {
 
     describe('There is previous pokemon', () => {
         const pikachuImage: File = {
-            path: pikachu.image
+            name: pikachu.image
         }
         const roucoupsImage: File = {
-            path: roucoups.image
+            name: roucoups.image
         }
 
         beforeEach(async () => {
@@ -62,9 +62,17 @@ describe('Create a pokemon', () => {
         })
         it('should upload the file in the storage gateway', async () => {
             const expectedFile: File = {
-                path: pokemon.image
+                name: pokemon.image
             }
             expect(await storageGateway.getFiles()).toEqual([pikachuImage, roucoupsImage, expectedFile])
         })
+    })
+
+    it('should throw an error if name has unexpected characters', () => {
+        expect(async () => await createPokemon({
+            name: 'Pokemon#',
+            description: pikachu.description,
+            types: pikachu.types,
+        }, pokemonGateway)).rejects.toThrow(Error)
     })
 })
