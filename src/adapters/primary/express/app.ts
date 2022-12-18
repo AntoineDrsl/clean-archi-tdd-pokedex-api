@@ -81,7 +81,7 @@ app.use(async (err: any, req: any, res: any, next: any) => {
     if (res.headersSent) {
         return next(err)
     }
-    res.status(err.code ?? 500).send({ message: err.message })
+    res.status(err.status ?? 500).send({ message: err.message })
 })
 
 
