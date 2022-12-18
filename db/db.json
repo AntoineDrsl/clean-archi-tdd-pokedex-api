@@ -1,25 +1,32 @@
 {
-    "pokemons": [
-        {
-            "id": 1,
-            "name": "Pikachu",
-            "description": "Un beau pokemon",
-            "image": "pikachu.png",
-            "types": ["vol"]
-        },
-        {
-            "id": 2,
-            "name": "Roucoups",
-            "description": "Un pokemon moins cool",
-            "image": "roucoups.png",
-            "types": ["normal", "vol"]
-        },
-        {
-            "id": 3,
-            "name": "Abo",
-            "description": "Un pokemon serpent",
-            "image": "abo.png",
-            "types": ["poison"]
-        }
-    ]
+  "pokemons": [
+    {
+      "id": 1,
+      "name": "Pikachu",
+      "description": "Un beau pokemon",
+      "image": "pikachu.png",
+      "types": [
+        "vol"
+      ]
+    },
+    {
+      "id": 2,
+      "name": "Roucoups",
+      "description": "Un pokemon moins cool",
+      "image": "roucoups.png",
+      "types": [
+        "normal",
+        "vol"
+      ]
+    },
+    {
+      "id": 3,
+      "name": "Abo",
+      "description": "Un pokemon serpent",
+      "image": "abo.png",
+      "types": [
+        "poison"
+      ]
+    }
+  ]
 }

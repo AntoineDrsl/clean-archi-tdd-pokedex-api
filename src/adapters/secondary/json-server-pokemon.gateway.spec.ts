@@ -1,12 +1,14 @@
+import { FakeStorageGateway } from './fake-storage.gateway';
 import { jsonServerUrl } from './../../core/utils/json-server-url';
 import { PokemonNotFoundError } from './../../core/errors/pokemon-not-found.error';
-import { pokemonGateway } from './../primary/dependencies';
 import { Pokemon } from './../../core/entities/pokemon.entity';
 import { roucoups, abo } from './../../core/faker/pokemon.faker';
 import { JsonServerPokemonGateway } from './json-server-pokemon.gateway';
 import { FolderStorageGateway } from './folder-storage.gateway';
 import axios from 'axios'
 import { pikachu } from '../../core/faker/pokemon.faker';
+import { File } from 'formidable';
+import * as fs from 'fs'
 
 jest.mock('axios')
 
@@ -47,5 +49,20 @@ describe('Json server pokemon gateway', () => {
             expect(async () => await pokemonGateway.find(999)).rejects.toThrow(PokemonNotFoundError)
         })
     })
-})
 
+    describe('Create a pokemon', () => {
+        it('should create a pokemon', async () => {
+            const mockedResponse = pikachu;
+            (axios.post as jest.Mock).mockResolvedValue({ data: mockedResponse });
+
+            const pokemonGateway = new JsonServerPokemonGateway(new FakeStorageGateway())
+            const pokemon = await pokemonGateway.create({
+                name: pikachu.name,
+                description: pikachu.description,
+                types: pikachu.types,
+            })
+
+            expect(pokemon).toEqual(mockedResponse)
+        })
+    })
+})

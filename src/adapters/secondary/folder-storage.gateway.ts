@@ -1,7 +1,7 @@
 import { File } from './../../core/entities/file.entity';
 import { File as FormidableFile } from 'formidable'
 import { StorageGateway } from "../../core/gateways/storage.gateway";
-import fs from 'fs'
+import * as fs from 'fs'
 
 export class FolderStorageGateway implements StorageGateway {
     private file?: FormidableFile
@@ -30,9 +30,7 @@ export class FolderStorageGateway implements StorageGateway {
                     : (this.file.mimetype == 'image/svg+xml' ? 'svg' 
                         : 'png')))
 
-        fs.rename(this.file.filepath, `uploads/${name}.${extension}`, function (err) {
-            if (err) throw err;
-        });
+        fs.rename(this.file.filepath, `uploads/${name}.${extension}`, (err) => {});
 
         const file: File = {
             name: `${name}.${extension}`
