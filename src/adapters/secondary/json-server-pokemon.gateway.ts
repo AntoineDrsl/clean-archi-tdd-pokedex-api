@@ -1,3 +1,4 @@
+import { jsonServerUrl } from './../../core/utils/json-server-url';
 import { PokemonNotFoundError } from './../../core/errors/pokemon-not-found.error';
 import { StorageGateway } from './../../core/gateways/storage.gateway';
 import { CreatePokemonDto } from './../../core/dto/create-pokemon.dto';
@@ -13,14 +14,14 @@ export class JsonServerPokemonGateway implements PokemonGateway {
     }
 
     async list(): Promise<Array<Pokemon>> {
-        const res = await axios.get('http://localhost:3000/pokemons')
+        const res = await axios.get(`${jsonServerUrl}/pokemons`)
         const pokemons = res.data
         return pokemons as Array<Pokemon>
     }
 
     async find(id: number): Promise<Pokemon> {
         try {
-            const res = await axios.get(`http://localhost:3000/pokemons/${id}`)
+            const res = await axios.get(`${jsonServerUrl}/pokemons/${id}`)
             const pokemon = res.data
             return pokemon as Pokemon
         } catch(err) {

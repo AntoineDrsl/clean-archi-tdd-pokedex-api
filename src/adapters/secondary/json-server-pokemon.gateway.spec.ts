@@ -1,3 +1,4 @@
+import { jsonServerUrl } from './../../core/utils/json-server-url';
 import { PokemonNotFoundError } from './../../core/errors/pokemon-not-found.error';
 import { pokemonGateway } from './../primary/dependencies';
 import { Pokemon } from './../../core/entities/pokemon.entity';
@@ -25,7 +26,7 @@ describe('Json server pokemon gateway', () => {
             const pokemonGateway = new JsonServerPokemonGateway(new FolderStorageGateway())
             const pokemons = await pokemonGateway.list()
     
-            expect(axios.get).toHaveBeenCalledWith('http://localhost:3000/pokemons')
+            expect(axios.get).toHaveBeenCalledWith(`${jsonServerUrl}/pokemons`)
             expect(pokemons).toEqual(mockedResponse)
         }
     })
